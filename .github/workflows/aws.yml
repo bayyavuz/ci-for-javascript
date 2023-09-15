@@ -43,6 +43,9 @@ jobs:
     # permissions:
     #   contents: none
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     needs: build
     environment:
       name: 'Development'
