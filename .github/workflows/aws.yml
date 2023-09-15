@@ -1,8 +1,8 @@
 name: Node.js CI/CD
 
 on:
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -55,7 +55,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
-        name: my-artifact-name  # Eylem tarafından yaratılan artifact ismi
+        name: node-app  # Eylem tarafından yaratılan artifact ismi
 
     - name: Install AWS CLI
       run: |
@@ -70,4 +70,4 @@ jobs:
 
     - name: Copy Artifact to EC2
       run: |
-        scp -i /path/to/your/key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null my-artifact-name.tar.gz ubuntu@ec2-instance-ip:/path/to/destination/
+        scp -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null node-app.tar.gz ubuntu@54.152.54.27:/home
