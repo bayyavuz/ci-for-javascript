@@ -41,7 +41,7 @@ jobs:
         
   deploy:
     permissions:
-      contents: none
+      contents: read
     runs-on: ubuntu-latest
     strategy:
       matrix:
