@@ -13,14 +13,14 @@ provider "aws" {
 
 provider "aws" {
   region  = "us-east-1"
-  access_key = "${{ secrets.AWS_ACCESS_KEY_ID }}""
+  access_key = "${{ secrets.AWS_ACCESS_KEY_ID }}"
   secret_key = "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
   ## profile = "my-profile"
 }
 
 resource "aws_instance" "tf-ec2" {
   ami      = data.aws_ami.ubuntu.id
-  key_name = ${{ secrets.SSH_PRIVATE_KEY }}
+  key_name = " ${{ secrets.SSH_PRIVATE_KEY }}" 
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.demo-sg.id]
   tags = {
@@ -50,8 +50,7 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-
-  user_data = <<-EOF
+    user_data = <<-EOF
        #!/bin/bash
        apt-get update -y
        apt-get install nodejs -y
@@ -59,6 +58,7 @@ data "aws_ami" "ubuntu" {
        apt-get remove apache2.* && sudo update-rc.d apache2 remove
        systemctl disable apache2 && sudo systemctl stop apache2
        apt-get install nginx
+       EOF
 }
 
 resource "aws_security_group" "demo-sg" {
