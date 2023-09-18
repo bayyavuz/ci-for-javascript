@@ -1,0 +1,49 @@
+name: terraform infa.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  infrastructure:
+    environment:
+      name: 'infrastructure'
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: terraform init
+        uses: robertdebock/terraform-action@1.1.4
+        with:
+          action: init
+          directory: .
+      - name: terraform validate
+        uses: robertdebock/terraform-action@1.1.4
+        with:
+          action: validate
+          directory: .
+      - name: terraform plan
+        uses: robertdebock/terraform-action@1.1.4
+        with:
+          action: plan
+          directory: .
+      - name: terraform apply
+        uses: robertdebock/terraform-action@1.1.4
+        with:
+          action: apply
+          directory: .
+        env:
+          TF_CLI_ARGS: "-input=false -auto-approve"
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    name: Terraform destroy
+    uses: robertdebock/terraform-action@1.1.4
+    steps:
+    - name: Terraform Destroy
+        run: |
+          terraform destroy -auto-approve
+        working-directory: .
+        env:
+          TF_CLI_ARGS: "-input=false"
