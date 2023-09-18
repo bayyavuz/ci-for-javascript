@@ -15,36 +15,14 @@ provider "aws" {
 }
 
 resource "aws_instance" "tf-ec2" {
-  ami      = data.aws_ami.ubuntu.id
+  ami = "ami-053b0d53c279acc90"
+  # ami      = data.aws_ami.ubuntu.id
   key_name = " $(secrets.SSH_PRIVATE_KEY)" 
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.demo-sg.id]
   tags = {
     "Name" = "created-by-terraform"
   }
-
-
-data "aws_ami" "ubuntu" {
-  executable_users = ["self"]
-  most_recent      = true
-  name_regex       = "^myami-\\d{3}"
-  owners           = ["self"]
-
-  filter {
-    name   = "name"
-    values = ["myami-*"]
-  }
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
 
     user_data = <<-EOF
        #!/bin/bash
@@ -84,5 +62,5 @@ resource "aws_security_group" "demo-sg" {
 }
 
 output "tf-ec2" {
-  value = aws_instance.control_node.public_ip
+  value = aws_instance.tf-ec2.public_ip
 }
