@@ -9,36 +9,36 @@ on:
         default: 'App Server'
         type: string
 jobs:
-  infrastructure:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: '${{ secrets.AWS_ACCESS_KEY_ID }}'
-          aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
-          aws-region: us-east-1
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_wrapper: false
-      - name: Terraform Apply
-        id:   apply
-        env:
-          TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
-        run: |
-          cd tf-example/
-          terraform init
-          terraform validate
-          terraform plan 
-          terraform apply -auto-approve
+#   infrastructure:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '14'
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+#           aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+#           aws-region: us-east-1
+#       - name: Setup Terraform
+#         uses: hashicorp/setup-terraform@v2
+#         with:
+#           terraform_wrapper: false
+#       - name: Terraform Apply
+#         id:   apply
+#         env:
+#           TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
+#         run: |
+#           cd tf-example/
+#           terraform init
+#           terraform validate
+#           terraform plan 
+#           terraform apply -auto-approve
 
   post:
-    needs: [infrastructure]
+    # needs: [infrastructure]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -55,8 +55,8 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_wrapper: false
-      - name: Terraform Apply
-        id:   apply
+      - name: Terraform destroy
+        id:   destroy
         env:
           TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
         run: |
