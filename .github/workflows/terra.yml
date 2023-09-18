@@ -35,15 +35,19 @@ jobs:
           directory: .
         env:
           TF_CLI_ARGS: "-input=false -auto-approve"
-jobs:
+          
   post:
+    environment:
+      name: 'post'
+    needs: [infrastructure]
     runs-on: ubuntu-latest
-    name: Terraform destroy
-    uses: robertdebock/terraform-action@1.1.4
     steps:
-    - name: Terraform Destroy
-        run: |
-          terraform destroy -auto-approve
-        working-directory: .
-        env:
-          TF_CLI_ARGS: "-input=false"
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: terraform destroy
+      uses: robertdebock/terraform-action@1.1.4
+      with:
+        action: destroy
+        directory: .
+      env:
+        TF_CLI_ARGS: "-input=false -auto-approve"
