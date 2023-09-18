@@ -4,7 +4,7 @@
 name: Node.js CI
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
   # push:
   #   branches: [ "main" ]
   pull_request:
@@ -39,3 +39,20 @@ jobs:
         report_paths: '**/junit.xml'
         detailed_summary: true
         include_passed: true
+        
+  lint:
+  
+    name: Ensure code standards
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: "Checkout repostiory"
+        uses: actions/checkout@v3
+      - name: "Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: "Install dependencies"
+        uses: bahmutov/npm-install@v1
+      - name: "Lint code"
+        run: npm run lint --if-present
