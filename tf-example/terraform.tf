@@ -1,4 +1,7 @@
 terraform {
+  workspaces {
+      name = "ci-cd"
+}
   required_providers {
     aws = {
       source = "hashicorp/aws"
