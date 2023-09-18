@@ -5,8 +5,8 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'main.js/**'
+    # paths:
+    #   - 'main.js/**'
   # push:
   #   branches: [ "main" ]
   #   paths:
