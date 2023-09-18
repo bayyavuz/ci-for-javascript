@@ -29,3 +29,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - name: Node.js Production Test Action
+  # You may pin to the exact commit or the version.
+  # uses: boneskull/nodejs-production-test-action@f7f5b14d06630d4d5fae00214877ae5c692829cb
+      uses: boneskull/nodejs-production-test-action@v2.0.0
