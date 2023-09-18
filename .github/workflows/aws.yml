@@ -1,11 +1,16 @@
 name: Node.js CI/CD
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'main.js/**'
+  # push:
+  #   branches: [ "main" ]
+  #   paths:
+  #     - 'main.js/**'
 
 # env:
 #   NODE_VERSION: '14.x'                # set this to the node version to use
