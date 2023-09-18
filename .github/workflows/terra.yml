@@ -1,13 +1,13 @@
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
-    inputs:
-      ec2-name:
-        description: EC2 name
-        required: true
-        default: 'App Server'
-        type: string
+  # push:
+    # branches: [ "main" ]
+    # inputs:
+    #   ec2-name:
+    #     description: EC2 name
+    #     required: true
+    #     default: 'App Server'
+    #     type: string
 jobs:
   infrastructure:
     runs-on: ubuntu-latest
@@ -29,7 +29,8 @@ jobs:
       - name: Terraform Apply
         id:   apply
         env:
-          TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
+          # TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
+          TF_VAR_ec2_name:  "yavuz"
         run: |
           cd tf-example/
           terraform init
@@ -65,7 +66,8 @@ jobs:
        - name: Terraform destroy
          id: destroy
          env:
-           TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
+           # TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
+           TF_VAR_ec2_name:  "yavuz"
          run: terraform destroy -auto-approve
 
 
