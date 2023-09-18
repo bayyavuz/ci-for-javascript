@@ -19,7 +19,7 @@ resource "aws_instance" "tf-ec2" {
   # ami      = data.aws_ami.ubuntu.id
   key_name = "first-key" 
   instance_type = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.github-a-sg.id]
+  vpc_security_group_ids = [aws_security_group.github-ac-sg.id]
   tags = {
     "Name" = "created-by-terraform"
   }
@@ -36,8 +36,8 @@ resource "aws_instance" "tf-ec2" {
        EOF
 }
 
-resource "aws_security_group" "github-a-sg" {
-  name = "github-a-sg"
+resource "aws_security_group" "github-ac-sg" {
+  name = "github-ac-sg"
   description = "Allow HTTP and SSH traffic via Terraform"
 
   ingress {
