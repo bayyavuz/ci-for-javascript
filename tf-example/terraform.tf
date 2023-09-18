@@ -17,7 +17,7 @@ provider "aws" {
 resource "aws_instance" "tf-ec2" {
   ami = "ami-053b0d53c279acc90"
   # ami      = data.aws_ami.ubuntu.id
-  key_name = " SSH_PRIVATE_KEY " 
+  key_name = " first-key " 
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.demo-sg.id]
   tags = {
