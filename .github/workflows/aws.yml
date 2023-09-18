@@ -20,6 +20,8 @@ permissions:
 
 jobs:
   build:
+    environment:
+      name: 'Test'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -45,14 +47,14 @@ jobs:
         
   deploy:
     permissions:
-      packages: write
+      packages: read
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
     needs: build
     environment:
-      name: 'Development'
+      name: 'Production'
       # url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
