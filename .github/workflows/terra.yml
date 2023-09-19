@@ -77,12 +77,12 @@ jobs:
        - name: Setup Terraform                                                                      
          uses: hashicorp/setup-terraform@v1
 
-       - name: Terraform Init
-         id: init
-         env:
-           # TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
-           TF_VAR_ec2_name:  "yavuz"
-         run: terraform init  
+       # - name: Terraform Init
+       #   id: init
+       #   env:
+       #     # TF_VAR_ec2_name:  "${{ github.event.inputs.ec2-name }}"
+       #     TF_VAR_ec2_name:  "yavuz"
+       #   run: terraform init  
         
        - name: Show Destroy plan
          run: terraform plan -destroy
@@ -95,6 +95,7 @@ jobs:
            TF_VAR_ec2_name:  "yavuz"
          run: |
            cd tf-example/
+           terraform init
            terraform destroy -auto-approve
 
 
