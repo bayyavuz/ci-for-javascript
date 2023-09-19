@@ -21,14 +21,6 @@ provider "aws" {
   ## profile = "my-profile"
 }
 
-resource "aws_s3_bucket" "example" {
-  bucket = "github-action-project"
-
-  tags = {
-    Name        = "github-action-project"
-    # Environment = "Dev"
-  }
-}
 
 resource "aws_instance" "tf-ec2" {
   ami = "ami-053b0d53c279acc90"
@@ -53,7 +45,7 @@ resource "aws_instance" "tf-ec2" {
 }
 
 resource "aws_security_group" "github-ac-sg" {
-  name = "git-scrty-grp"
+  name = "gt-sc-grp"
   description = "Allow HTTP and SSH traffic via Terraform"
 
   ingress {
