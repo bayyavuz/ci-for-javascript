@@ -1,17 +1,33 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "5.17.0"
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+      # version = "5.17.0"
     }
   }
+  backend "s3" {
+    bucket = "github-action-project"
+    key = "backend/tf-backend.tfstate"
+    region = "us-east-1"
+  }
 }
+
 
 provider "aws" {
   region  = "us-east-1"
   # access_key = " AWS_ACCESS_KEY_ID "
   # secret_key = " AWS_SECRET_ACCESS_KEY "
   ## profile = "my-profile"
+}
+
+resource "aws_s3_bucket" "example" {
+  bucket = "github-action-project"
+
+  tags = {
+    Name        = "github-action-project"
+    # Environment = "Dev"
+  }
 }
 
 resource "aws_instance" "tf-ec2" {
