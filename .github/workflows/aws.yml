@@ -80,7 +80,7 @@ jobs:
     - name: copy file to server
       uses: appleboy/scp-action@v0.1.4
       with:
-        host: 3.81.98.62 # ${{ secrets.HOST }}
+        host: 54.91.117.203 # ${{ secrets.HOST }}
         username: ubuntu # ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         # port: ${{ secrets.PORT }}
