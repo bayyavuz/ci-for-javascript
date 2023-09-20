@@ -62,8 +62,8 @@ jobs:
         run: npm run lint --if-present
         
   build:
-    permissions:
-      contents: read
+    # permissions:
+    #   contents: read
     environment:
       name: 'Pipeline-Test'
     needs: [infrastructure]
