@@ -71,7 +71,7 @@ server {
     server_name _;
     location ^~ /mysocket {
         #your proxy directives
-        proxy_pass http://localhost:5000;
+        proxy_pass http://localhost:3000;
         proxy_redirect off;
         proxy_ssl_session_reuse on;
         proxy_set_header X-Real-IP \$remote_addr;
