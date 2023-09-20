@@ -66,29 +66,19 @@ sudo chown -R ubuntu:ubuntu /var/app
 sudo chmod 777 /etc/nginx/sites-enabled
 sudo cat <<EOF > /etc/nginx/sites-enabled/web.conf
 
-upstream app_upstream {
-  server 127.0.0.1:3000;
-  keepalive 64;
-}
-
 server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
-  server_name _;
-
-  location / {
-    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-    proxy_set_header X-Real-IP \$remote_addr;
-    proxy_set_header Host \$http_host;
-      
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade \$http_upgrade;
-    proxy_set_header Connection "upgrade";
-      
-    proxy_pass http://app_upstream/;
-    proxy_redirect off;
-    proxy_read_timeout 240s;
-  }
+    listen        80;
+    server_name _;
+    location / {
+        proxy_pass         http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
 }
        EOF
 }
