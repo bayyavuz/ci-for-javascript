@@ -44,6 +44,7 @@ apt-get -y -qq install curl wget git vim apt-transport-https ca-certificates ngi
 # Setup NodeJS 14.x
 # curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 apt-get -y -qq install nodejs
+apt-get -y -qq install npm
 npm install pm2@latest -g
 
 # Setup sudo to allow no-password sudo for "hashicorp" group and adding "terraform" user
