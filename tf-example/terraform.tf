@@ -117,7 +117,7 @@ resource "aws_security_group" "github-ac-sg" {
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.kittens.zone_id
+  zone_id = data.aws_route53_zone.github.zone_id
   name    = var.githubb-action
   type    = "A"
   ttl     = 300
