@@ -60,8 +60,9 @@ sudo chown -R ubuntu:ubuntu /var/app
 
 # Setup nginx
 # Remove the default configuration
-sudo sh -c '> /etc/nginx/sites-available/default' && \
-sudo sh -c 'sudo cat <<EOF > /etc/nginx/sites-available/default
+# sudo sh -c '> /etc/nginx/sites-available/default' && \
+sudo sh -c 'sudo cat <<EOF > /etc/nginx/sites-enabled/web.conf
+
 upstream app_upstream {
   server 127.0.0.1:3000;
   keepalive 64;
