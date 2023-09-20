@@ -109,7 +109,7 @@ jobs:
   post:
     needs: [infrastructure]
     environment:
-      name: 'post'
+      name: 'Post'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
