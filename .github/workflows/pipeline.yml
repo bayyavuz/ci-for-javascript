@@ -149,7 +149,7 @@ jobs:
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         command: |
           cd /var/app/web
-          npm ci
+          # npm ci
           pm2 start /var/app/web || pm2 restart /var/app/web
           sudo service nginx restart
 
