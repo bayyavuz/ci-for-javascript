@@ -89,6 +89,7 @@ server {
        EOF
 }
 
+
 resource "aws_security_group" "github-ac-sg" {
   name = "gt-sc-grp"
   description = "Allow HTTP and SSH traffic via Terraform"
@@ -113,6 +114,25 @@ resource "aws_security_group" "github-ac-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.kittens.zone_id
+  name    = var.githubb-action
+  type    = "A"
+  ttl     = 300
+  records = [aws_instance.tf-ec2.public_ip]
+}
+data "aws_route53_zone" "github" {
+  name         =var.hosted_zone
+}
+
+variable "githubb-action" {
+  default     = "github.bayyavuz.com"
+}
+
+variable "hosted_zone" {
+  default     = "bayyavuz.com"
 }
 
 output "tf-ec2" {
