@@ -34,17 +34,17 @@ resource "aws_instance" "tf-ec2" {
   
    user_data = <<-EOF
 #!/bin/bash
-set -e
+# set -e
 
 # Install dependencies
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq update
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install curl wget git vim apt-transport-https ca-certificates nginx
+
+apt-get -y -qq update
+apt-get -y -qq install curl wget git vim apt-transport-https ca-certificates nginx
 
 # Setup NodeJS 14.x
-curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install nodejs
-sudo npm install pm2@latest -g
+# curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+apt-get -y -qq install nodejs
+npm install pm2@latest -g
 
 # Setup sudo to allow no-password sudo for "hashicorp" group and adding "terraform" user
 #sudo groupadd -r hashicorp
