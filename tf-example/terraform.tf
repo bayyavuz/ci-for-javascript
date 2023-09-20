@@ -39,6 +39,7 @@ resource "aws_instance" "tf-ec2" {
 # Install dependencies
 
 apt-get -y -qq update
+apt-get remove apache2.* && update-rc.d apache2 remove
 apt-get -y -qq install curl wget git vim apt-transport-https ca-certificates nginx
 
 # Setup NodeJS 14.x
@@ -61,7 +62,9 @@ sudo chown -R ubuntu:ubuntu /var/app
 # Setup nginx
 # Remove the default configuration
 # sudo sh -c '> /etc/nginx/sites-available/default' && \
-sudo sh -c 'sudo cat <<EOF > /etc/nginx/sites-enabled/web.conf
+#sudo sh -c 'sudo cat <<EOF > /etc/nginx/sites-enabled/web.conf
+sudo chmod 777 /etc/nginx/sites-enabled
+sudo cat <<EOF > /etc/nginx/sites-enabled/web.conf
 
 upstream app_upstream {
   server 127.0.0.1:3000;
