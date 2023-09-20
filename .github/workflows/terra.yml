@@ -38,6 +38,13 @@ jobs:
           terraform plan 
           terraform apply -auto-approve
 
+      - name: Get Terraform Output
+        id: terraform-output
+        run: echo "::set-output name=my_output::$(terraform output -json)"
+
+      - name: Set Environment Variable
+        run: echo "MY_ENV_VAR=${{ steps.terraform-output.outputs.my_output }}" >> $GITHUB_ENV
+
        
   # post:
   #   needs: [infrastructure]
