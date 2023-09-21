@@ -151,6 +151,7 @@ jobs:
           cd /var/app/web
           # npm ci
           pm2 start /var/app/web || pm2 restart /var/app/web
+          pm2 monit
           sudo service nginx restart
 
   post:
