@@ -39,13 +39,13 @@ jobs:
         report_paths: '**/junit.xml'
         detailed_summary: true
         include_passed: true
-    - name: zip  build
-      run: zip -r myfiles.zip ./
+    # - name: zip  build
+    #   run: zip -r myfiles.zip ./
     - name: upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: build-arifact
-        path: myfiles.zip
+        path: . # myfiles.zip
         
   lint:
   
