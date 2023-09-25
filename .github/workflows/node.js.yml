@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Sıkıştır
+    - name: zip  build
       run: zip -r myfiles.zip ./
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -41,10 +41,10 @@ jobs:
         report_paths: '**/junit.xml'
         detailed_summary: true
         include_passed: true
-    - name: Yayınla
+    - name: upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: .
+        name: build-arifact
         path: myfiles.zip
         
   lint:
