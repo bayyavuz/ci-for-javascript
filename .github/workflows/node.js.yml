@@ -41,11 +41,13 @@ jobs:
         include_passed: true
     # - name: zip  build
     #   run: zip -r myfiles.zip ./
+    - name: Tar files
+      run: tar -cvf my_files.tar ./
     - name: upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: build-arifact
-        path: . # myfiles.zip
+        name: my-arifact
+        path: my_files.tar
         
   lint:
   
