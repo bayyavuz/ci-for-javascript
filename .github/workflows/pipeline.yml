@@ -148,11 +148,16 @@ jobs:
         hosts: ubuntu@github.bayyavuz.com
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         command: |
-          cd /var/app/web
-          # npm ci
-          pm2 start /var/app/web || pm2 restart /var/app/web
-          pm2 monit
-          sudo service nginx restart
+          sudo apt install unzip
+           sudo unzip -o /var/www/portal/my-artifact.zip -d /var/www/portal
+           cd /var/www/portal
+           # npm ci
+           pm2 start build --name api-base-bacend
+           pm2 save
+           pm2 restart api-base-bacend  #  && pm2 monit
+           # pm2 start /var/www/portal || pm2 restart /var/www/portal
+           # pm2 monit
+           sudo service nginx restart
 
   post:
     needs: [deploy]
